@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contestants Buzzer</title>
+<style>
+    @font-face {
+        font-family: 'LTA-Identity';
+        src: url('LTA-Identity.ttf') format('truetype');
+    }
+
+    body {
+        font-family: 'LTA-Identity', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #111;
+        color: #fff;
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 40px;
+    }
+
+    .buzzer-button {
+        font-family: 'LTA-Identity', sans-serif;
+        font-size: 2em;
+        padding: 40px 80px;
+        background-color: red;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 0 20px #ff0000;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .buzzer-button:active,
+    .playing {
+        transform: scale(1.1);
+        box-shadow: 0 0 40px #ff4444;
+    }
+</style>
+</head>
+<body>
+
+<h1>Contestants Buzzer</h1>
+<button class="buzzer-button" id="buzzer">Air Horn</button>
+
+<audio id="buzzer-sound" src="buzzer.mp3"></audio>
+
+<script>
+    const buzzerButton = document.getElementById('buzzer');
+    const buzzerSound = document.getElementById('buzzer-sound');
+
+    function stopAllSounds() {
+        buzzerSound.pause();
+        buzzerSound.currentTime = 0;
+    }
+
+    buzzerButton.addEventListener('click', () => {
+        stopAllSounds();
+        buzzerSound.play().catch(e => console.log("Audio play prevented:", e));
+        buzzerButton.classList.add('playing');
+        setTimeout(() => {
+            buzzerButton.classList.remove('playing');
+        }, 500);
+    });
+</script>
+
+</body>
+</html>
